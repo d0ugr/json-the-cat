@@ -30,7 +30,7 @@ requestKitty(`${CATAPI_SEARCH}?q=${args[0]}`, (body) => {
   if (kitty.length > 0) {
     console.log(kitty);
   } else {
-    console.log("No such kitty!")
+    console.log("No such kitty!");
   }
 
 });
