@@ -9,12 +9,14 @@ const requestKitty = function(url, callback) {
   request(url, (error, response, body) => {
     if (!error) {
       if (response.statusCode === 200) {
-        callback(body);
+        callback(null, body);
       } else {
-        console.log("request.statusCode:", response && response.statusCode);
+        // callback("request.statusCode:", response && response.statusCode);
+        callback("Kitty server says bad things!");
       }
     } else {
-      console.log("request error:", error);
+      // console.log("request error:", error);
+      callback("Kitty request failed!");
     }
   });
 
@@ -22,10 +24,10 @@ const requestKitty = function(url, callback) {
 
 const fetchBreedDescription = function(breed, callback) {
 
-  requestKitty(`${CATAPI_SEARCH}?q=${breed}`, (body) => {
+  requestKitty(`${CATAPI_SEARCH}?q=${breed}`, (error, body) => {
     let kitty = JSON.parse(body);
     if (kitty.length > 0) {
-      callback(null, kitty[0].description);
+      callback(null, kitty[0].description.trim());
     } else {
       callback("No such kitty!", null);
     }
@@ -35,4 +37,4 @@ const fetchBreedDescription = function(breed, callback) {
 
 
 
-module.exports = fetchBreedDescription;
+module.exports = { fetchBreedDescription };
