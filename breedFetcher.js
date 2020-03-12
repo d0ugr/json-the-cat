@@ -1,5 +1,9 @@
 const request = require("request");
 
+const CATAPI_SEARCH = "https://api.thecatapi.com/v1/breeds/search";
+
+
+
 const requestKitty = function(url, callback) {
 
   request(url, (error, response, body) => {
@@ -16,7 +20,11 @@ const requestKitty = function(url, callback) {
 
 };
 
-requestKitty("https://api.thecatapi.com/v1/breeds/search?q=sib", (body) => {
+
+
+let args = process.argv.slice(2, 3);
+
+requestKitty(`${CATAPI_SEARCH}?q=${args[0]}`, (body) => {
 
   console.log(typeof body, body);
   let kitty = JSON.parse(body);
