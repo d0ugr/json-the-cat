@@ -20,17 +20,19 @@ const requestKitty = function(url, callback) {
 
 };
 
+const fetchBreedDescription = function(breed, callback) {
+
+  requestKitty(`${CATAPI_SEARCH}?q=${breed}`, (body) => {
+    let kitty = JSON.parse(body);
+    if (kitty.length > 0) {
+      callback(null, kitty[0].description);
+    } else {
+      callback("No such kitty!", null);
+    }
+  });
+
+};
 
 
-let args = process.argv.slice(2, 3);
 
-requestKitty(`${CATAPI_SEARCH}?q=${args[0]}`, (body) => {
-
-  let kitty = JSON.parse(body);
-  if (kitty.length > 0) {
-    console.log(kitty);
-  } else {
-    console.log("No such kitty!");
-  }
-
-});
+module.exports = fetchBreedDescription;
