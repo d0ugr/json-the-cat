@@ -26,8 +26,11 @@ let args = process.argv.slice(2, 3);
 
 requestKitty(`${CATAPI_SEARCH}?q=${args[0]}`, (body) => {
 
-  console.log(typeof body, body);
   let kitty = JSON.parse(body);
-  console.log(typeof kitty, kitty);
+  if (kitty.length > 0) {
+    console.log(kitty);
+  } else {
+    console.log("No such kitty!")
+  }
 
 });
